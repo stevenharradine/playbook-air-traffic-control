@@ -1,0 +1,12 @@
+---
+- connection: local
+  hosts: application
+  vars: 
+    domain: teluswebteam.com
+    required_systems:
+      - application
+
+  roles:
+    - role: telusdigital.aws-infrastructure
+      tags:
+        - aws

@@ -1,0 +1,29 @@
+---
+- connection: local
+  hosts: localhost
+  roles:
+    - role: telusdigital.php
+    - role: telusdigital.nginx
+    - role: telusdigital.autodeploy
+  vars:
+    autodeploy_repository_origin: 'git@github.com:stevenharradine/air-traffic-control.git'
+    autodeploy_repository_branch: master
+    autodeploy_listener: node
+  tasks:
+    - name: install | apt
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - lynx
+    - name: curl localhost:81
+      command: curl localhost:81 --data ""
+    - name: npm install
+      npm:
+        path: /data/www/docroot
+    - name: reader | cron
+      sudo_user: www-data
+      cron:
+        name: "Start ATC"
+        special_time: reboot
+        job: "node /data/www/docroot/app.js"

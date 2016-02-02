@@ -1,0 +1,4 @@
+---
+- src: telusdigital.php
+- src: telusdigital.nginx
+- src: telusdigital.autodeploy

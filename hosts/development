@@ -1,0 +1,3 @@
+[all:vars]
+project=atc
+environment_tier=development
